@@ -2,9 +2,9 @@
 {% block body %}
 <div class="row marketing">
 
-    {% for c in councilman %}
-        <div class="col-lg-6">
-            <h4><a href="{% url 'councilman' c.slug %}" title="{{ c.name }}">{{ c.name }}</a></h4>
+    {% for councilman in councilmen %}
+        <div class="col-lg-4">
+            <h4><a href="{% url 'councilman' councilman.slug %}" title="{{ councilman.name }}">{{ councilman.name }}</a></h4>
         </div>
     {% endfor %}
 
