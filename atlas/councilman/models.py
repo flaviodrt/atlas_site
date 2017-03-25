@@ -20,3 +20,18 @@ class Councilman(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+
+class Donation(models.Model):
+
+    councilman = models.ForeignKey(Councilman, related_name='councilman')
+    candidate_id = models.CharField('Candidate Id', max_length=12)
+    state = models.CharField('State', max_length=50)
+    candidate = models.CharField('Candidate', max_length=150)
+    donor = models.CharField('Donor', max_length=255)
+    donor_tax_name = models.CharField('Donor Tax Name', max_length=255)
+    economic_sector = models.CharField('Economic Sector', max_length=100)
+    value = models.DecimalField('Value', max_digits=19, decimal_places=2)
+    type = models.CharField('Type', max_length=150)
+    description = models.CharField('Description', max_length=255)
+

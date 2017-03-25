@@ -4,9 +4,7 @@
 
     {% for c in councilman %}
         <div class="col-lg-6">
-
             <h4><a href="{% url 'councilman' c.slug %}" title="{{ c.name }}">{{ c.name }}</a></h4>
-
         </div>
     {% endfor %}
 
