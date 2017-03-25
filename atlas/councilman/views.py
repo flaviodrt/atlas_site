@@ -1,5 +1,13 @@
 from django.shortcuts import render
+from councilman.models import Councilman
 
-# Create your views here.
+
 def index(request):
-    return render(request, 'index.html')
+    data = {
+        'councilman': Councilman.objects.all()
+    }
+    return render(request, 'index.html', data)
+
+
+def show(request, slug):
+    pass

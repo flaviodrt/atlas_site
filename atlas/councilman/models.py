@@ -1,3 +1,4 @@
+from django.template.defaultfilters import slugify
 from django.db import models
 
 # Create your models here.
@@ -14,3 +15,8 @@ class Councilman(models.Model):
     biography = models.TextField('Biography')
     party = models.CharField('Party', max_length=10)
     picture = models.CharField('Picture', max_length=255)
+    slug = models.CharField('Name', max_length=150, default=None, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
