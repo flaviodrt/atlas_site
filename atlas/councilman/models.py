@@ -16,6 +16,7 @@ class Councilman(models.Model):
     party = models.CharField('Party', max_length=10)
     picture = models.CharField('Picture', max_length=255)
     slug = models.CharField('Name', max_length=150, default=None, null=True)
+    sequential_id = models.IntegerField('Sequential Id')
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -24,8 +25,8 @@ class Councilman(models.Model):
 
 class Donation(models.Model):
 
-    councilman = models.ForeignKey(Councilman, related_name='councilman')
-    candidate_id = models.CharField('Candidate Id', max_length=12)
+    councilman = models.ForeignKey(Councilman)
+    sequential_id = models.IntegerField('Sequential Id', null=True)
     state = models.CharField('State', max_length=50)
     candidate = models.CharField('Candidate', max_length=150)
     donor = models.CharField('Donor', max_length=255)
