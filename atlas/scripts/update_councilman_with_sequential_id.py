@@ -10,6 +10,7 @@ django.setup()
 from councilman.models import Councilman
 
 def update_sequential_id(row):
+    print(row.loc['sequential_id'])
     c = Councilman.objects.get(name=row.loc['name'])
     c.sequential_id = row.loc['sequential_id']
     c.save()
