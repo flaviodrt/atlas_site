@@ -5,7 +5,7 @@ from django.db import models
 
 class Councilman(models.Model):
 
-    STATUS_CHOICHES = (
+    STATUS_CHOICES = (
         (0, 'Inativo'),
         (1, 'Ativo')
     )
@@ -22,7 +22,10 @@ class Councilman(models.Model):
     picture = models.CharField('Picture', max_length=255, default=None, null=True)
     slug = models.CharField('Name', max_length=150, default=None, null=True)
     sequential_id = models.BigIntegerField('Sequential Id', default=None, null=True)
-    status = models.IntegerField('Status', choices=STATUS_CHOICHES, default=1)
+    status = models.IntegerField('Status', choices=STATUS_CHOICES, default=1)
+
+    from_file = models.CharField('From file', max_length=255, default=None, null=True)
+    created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -42,3 +45,5 @@ class Donation(models.Model):
     kind = models.CharField('Type', max_length=150)
     description = models.CharField('Description', max_length=255)
 
+    from_file = models.CharField('From file', max_length=255, default=None, null=True)
+    created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)

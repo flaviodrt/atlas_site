@@ -17,8 +17,12 @@ def save_from_row(row):
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
-        print("Reading file " + str(sys.argv[1]))
-        df = pd.read_csv(sys.argv[1])
+        f = str(sys.argv[1])
+
+        print("Reading file " + f)
+
+        df = pd.read_csv(f)
+        df['from_file'] = f.split("/")[-1]
         df.apply(save_from_row, axis=1)
 
     else:
