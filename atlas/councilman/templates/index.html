@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% block body %}
-<div class="row marketing">
 
+<div class="row">
     {% for councilman in councilmen %}
-        <div class="col-lg-4">
-            <h4><a href="{% url 'councilman' councilman.slug %}" title="{{ councilman.name }}">{{ councilman.name }}</a></h4>
+        <div class="col-sm-2">
+            <div>
+                <p><a href="{% url 'councilman' councilman.slug %}" title="{{ councilman.name }}">{{ councilman.name }}</a></p>
+            </div>
         </div>
     {% endfor %}
 
 </div>
+
 {% endblock %}

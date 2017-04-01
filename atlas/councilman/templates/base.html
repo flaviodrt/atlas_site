@@ -3,45 +3,43 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
     <title>Atlas</title>
 
     <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
-    <link href="{% static "css/jumbotron-narrow.css" %}" rel="stylesheet">
-    <style type="text/css">
-      * {
-        border-radius: 0px !important;
-      }
-    </style>
+    <link href="{% static "css/blog.css" %}" rel="stylesheet">
   </head>
 
   <body>
 
-    <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">About</a></li>
-            <li role="presentation"><a href="#">Contact</a></li>
-          </ul>
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="nav blog-nav">
+          <a class="nav-link active" href="#">Home</a>
+          <!--
+          <a class="nav-link" href="#">New features</a>
+          -->
         </nav>
-        <h3 class="text-muted">Atlas Municipal</h3>
       </div>
+    </div>
 
+    <div class="blog-header">
+      <div class="container">
+        <h1 class="blog-title">Atlas Municipal</h1>
+        <!--
+        <p class="lead blog-description">An example blog template built with Bootstrap.</p>
+        -->
+      </div>
+    </div>
+
+    <div class="container">
       {% block body %}
       {% endblock %}
-
-      <footer class="footer">
-        <p>&copy; 2016 Company, Inc.</p>
-      </footer>
-
-    </div> <!-- /container -->
+    </div><!-- /.container -->
 
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
