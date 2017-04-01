@@ -12,9 +12,13 @@ def index(request):
 def detail(request, slug):
 
     councilman = get_object_or_404(Councilman, slug=slug)
+    donations = councilman.donation_set.all().order_by('-value')
+
+    donations_sum = sum([d.value for d in donations])
 
     data = {
         'councilman': councilman,
-        'donations': councilman.donation_set.all().order_by('-value')
+        'donations': donations,
+        'donations_sum': donations_sum
     }
     return render(request, 'detail.html', data)
