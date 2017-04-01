@@ -39,7 +39,7 @@ h6, .h6 {
  */
 
 .blog-masthead {
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
   background-color: #428bca;
   -webkit-box-shadow: inset 0 -.1rem .25rem rgba(0,0,0,.1);
           box-shadow: inset 0 -.1rem .25rem rgba(0,0,0,.1);
@@ -91,6 +91,12 @@ h6, .h6 {
   font-size: 2rem;
   font-weight: normal;
 }
+.blog-title a {
+  color: inherit;
+}
+.blog-title a:hover {
+  text-decoration: none;
+}
 .blog-description {
   font-size: 1.1rem;
   color: #999;
@@ -98,7 +104,7 @@ h6, .h6 {
 
 @media (min-width: 40em) {
   .blog-title {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
   }
 }
 
@@ -142,11 +148,16 @@ h6, .h6 {
 }
 .blog-post-title {
   margin-bottom: .25rem;
-  font-size: 2.5rem;
+  font-size: 2.0rem;
 }
 .blog-post-meta {
   margin-bottom: 1.25rem;
   color: #999;
+}
+
+.blog-post-title2 {
+  margin-bottom: .25rem;
+  font-size: 1.5rem;
 }
 
 
