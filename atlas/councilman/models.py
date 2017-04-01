@@ -5,18 +5,24 @@ from django.db import models
 
 class Councilman(models.Model):
 
+    STATUS_CHOICHES = (
+        (0, 'Inativo'),
+        (1, 'Ativo')
+    )
+
     name = models.CharField('Name', max_length=150)
-    page_link = models.CharField('Page Link', max_length=100)
-    phone_number = models.CharField('Phone Number', max_length=50)
-    email = models.CharField('E-mail', max_length=150)
-    address = models.CharField('Address', max_length=255)
-    floor = models.CharField('Floor', max_length=10)
-    room = models.CharField('Room', max_length=10)
-    biography = models.TextField('Biography')
-    party = models.CharField('Party', max_length=10)
-    picture = models.CharField('Picture', max_length=255)
+    page_link = models.CharField('Page Link', max_length=100, default=None, null=True)
+    phone_number = models.CharField('Phone Number', max_length=50, default=None, null=True)
+    email = models.CharField('E-mail', max_length=150, default=None, null=True)
+    address = models.CharField('Address', max_length=255, default=None, null=True)
+    floor = models.CharField('Floor', max_length=10, default=None, null=True)
+    room = models.CharField('Room', max_length=10, default=None, null=True)
+    biography = models.TextField('Biography', default=None, null=True)
+    party = models.CharField('Party', max_length=10, default=None, null=True)
+    picture = models.CharField('Picture', max_length=255, default=None, null=True)
     slug = models.CharField('Name', max_length=150, default=None, null=True)
     sequential_id = models.BigIntegerField('Sequential Id', default=None, null=True)
+    status = models.IntegerField('Status', choices=STATUS_CHOICHES, default=1)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -33,6 +39,6 @@ class Donation(models.Model):
     donor_tax_name = models.CharField('Donor Tax Name', max_length=255)
     economic_sector = models.CharField('Economic Sector', max_length=100)
     value = models.DecimalField('Value', max_digits=19, decimal_places=2)
-    type = models.CharField('Type', max_length=150)
+    kind = models.CharField('Type', max_length=150)
     description = models.CharField('Description', max_length=255)
 
