@@ -10,7 +10,11 @@ def index(request):
 
 
 def detail(request, slug):
+
+    councilman = get_object_or_404(Councilman, slug=slug)
+
     data = {
-        'councilman': get_object_or_404(Councilman, slug=slug)
+        'councilman': councilman,
+        'donations': councilman.donation_set.all().order_by('-value')
     }
     return render(request, 'detail.html', data)

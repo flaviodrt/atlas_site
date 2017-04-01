@@ -11,11 +11,15 @@
         </div><!-- /.blog-post -->
 
         <div class="blog-post">
-            <table>
-                {% for donation in councilman.donation_set.all %}
+            <table class="table table-striped table-bordered table-sm">
+                <tr>
+                    <th>Doador</th>
+                    <th>Valor</th>
+                </tr>
+                {% for donation in donations %}
                 <tr>
                     <td>{{ donation.donor }}</td>
-                    <td>{{ donation.value }}</td>
+                    <td>R$ {{ donation.value }}</td>
                 </tr>
                 {% endfor %}
             </table>
