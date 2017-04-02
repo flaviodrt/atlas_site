@@ -47,3 +47,42 @@ class Donation(models.Model):
 
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
+
+
+class Expense(models.Model):
+
+    councilman = models.ForeignKey(Councilman)
+    date = models.DateField('Date')
+    department = models.CharField('Department', max_length=255)
+    expense = models.CharField('Expense', max_length=255)
+    value = models.DecimalField('Value', max_digits=19, decimal_places=2)
+    provider = models.CharField('Provider', max_length=255)
+    cnpj = models.CharField('Tax ID', max_length=255)
+    sequential_id = models.BigIntegerField('Sequential Id', null=True)
+
+    from_file = models.CharField('From file', max_length=255, default=None, null=True)
+    created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
+
+
+class Asset(models.Model):
+
+    councilman = models.ForeignKey(Councilman)
+    sequential_id = models.BigIntegerField('Sequential Id', null=True)
+    kind = models.CharField('Type', max_length=150)
+    description = models.CharField('Description', max_length=255)
+    value = models.DecimalField('Value', max_digits=19, decimal_places=2)
+    election_year = models.IntegerField('Election Year')
+
+    from_file = models.CharField('From file', max_length=255, default=None, null=True)
+    created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
+
+
+class Vote(models.Model):
+
+    councilman = models.ForeignKey(Councilman)
+    sequential_id = models.BigIntegerField('Sequential Id', null=True)
+    votes = models.IntegerField('Votes')
+    election_year = models.IntegerField('Election Year')
+
+    from_file = models.CharField('From file', max_length=255, default=None, null=True)
+    created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
