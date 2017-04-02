@@ -16,9 +16,14 @@ def detail(request, slug):
 
     donations_sum = sum([d.value for d in donations])
 
+    assets = councilman.asset_set.all().order_by('-value')
+    assets_sum = sum([d.value for d in assets])
+
     data = {
         'councilman': councilman,
         'donations': donations,
-        'donations_sum': donations_sum
+        'donations_sum': donations_sum,
+        'assets': assets,
+        'assets_sum': assets_sum
     }
     return render(request, 'detail.html', data)
