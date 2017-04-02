@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% block body %}
-
+{% load l10n %}
 <div class="row">
     <div class="col-sm-8 blog-main">
         <div class="blog-post">
             <h2 class="blog-post-title">{{ councilman.name }}</h2>
-            <p class="blog-post-meta">{{ councilman.party }}</p>
+            <!-- <p class="blog-post-meta">{{ councilman.party }}</p> -->
         </div><!-- /.blog-post -->
+        <div class="blog-post">
+            {{ councilman.name }} é vereador filiado ao {{ councilman.party }} e recebeu {{ votes.votes }} na eleição de {{ votes.election_year|unlocalize }}
+
+        </div>
 
         {% if donations %}
         <div class="blog-post">
@@ -22,18 +26,19 @@
                     {% for donation in donations %}
                     <tr>
                         <td>{{ donation.donor }}</td>
-                        <td>R$ {{ donation.value }}</td>
+                        <td>R$ {{ donation.value|floatformat:1 }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>Total: </th>
-                        <th>R$ {{ donations_sum }}</th>
+                        <th>R$ {{ donations_sum|floatformat:1 }}</th>
                     </tr>
                 </tfoot>
             </table>
         </div>
+        <hr>
         {% endif %}
 
         {% if assets %}
@@ -50,18 +55,53 @@
                     {% for asset in assets %}
                     <tr>
                         <td>{{ asset.description }}</td>
-                        <td>R$ {{ asset.value }}</td>
+                        <td>R$ {{ asset.value|floatformat:1 }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
                         <th>Total: </th>
-                        <th>R$ {{ assets_sum }}</th>
+                        <th>R$ {{ assets_sum|floatformat:1 }}</th>
                     </tr>
                 </tfoot>
             </table>
         </div>
+        <hr>
+        {% endif %}
+
+
+        {% if expenses %}
+        <div class="blog-post">
+            <h3 class="blog-post-title2">Despesas do vereador</h3>
+            <table id="expenses" class="table table-striped table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Fornecedor</th>
+                        <th>Despesa</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expense in expenses %}
+                    <tr>
+                        <td>{{ expense.date|date:"m/Y" }}</td>
+                        <td>{{ expense.provider }}</td>
+                        <td>{{ expense.expense }}</td>
+                        <td>R$ {{ expense.value|floatformat:1 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3">Total: </th>
+                        <th>R$ {{ expenses_sum|floatformat:1 }}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <hr>
         {% endif %}
 
 
