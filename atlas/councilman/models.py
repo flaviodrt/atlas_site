@@ -87,7 +87,7 @@ class Vote(models.Model):
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
 
-class salaries(models.Model):
+class Salaries(models.Model):
 
     councilman = models.ForeignKey(Councilman)
     sequential_id = models.BigIntegerField('Sequential Id', null=True)
@@ -104,7 +104,7 @@ class salaries(models.Model):
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
 
-class expenses_election(models.Model):
+class Expenses_election(models.Model):
 
     councilman = models.ForeignKey(Councilman)
     sequential_id = models.BigIntegerField('Sequential Id', null=True)
