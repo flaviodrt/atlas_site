@@ -87,11 +87,12 @@ class Vote(models.Model):
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
 
-class Salaries(models.Model):
 
-    councilman = models.ForeignKey(Councilman)
+class Salary(models.Model):
+
+    councilman = models.ForeignKey(Councilman, null=True)
     sequential_id = models.BigIntegerField('Sequential Id', null=True)
-    
+
     sector = models.IntegerField('Sector')
     name = models.IntegerField('Name')
     role = models.IntegerField('Role')
@@ -104,17 +105,17 @@ class Salaries(models.Model):
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
 
-class Expenses_election(models.Model):
+
+class ExpensesElection(models.Model):
 
     councilman = models.ForeignKey(Councilman)
     sequential_id = models.BigIntegerField('Sequential Id', null=True)
     provider = models.IntegerField('Provider')
-    CNPJ = models.IntegerField('CNPJ')
+    cnpj = models.IntegerField('CNPJ')
     economic_sector = models.IntegerField('Economic Sector')
     value = models.IntegerField('Value')
     kind = models.IntegerField('Kind')
     description = models.IntegerField('Description')
-
 
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
