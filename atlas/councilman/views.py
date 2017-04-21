@@ -22,6 +22,9 @@ def detail(request, slug):
     expenses = councilman.expense_set.all().order_by('-value')
     expenses_sum = sum([d.value for d in expenses])
 
+    election_expenses = councilman.expenseselection_set.all().order_by('-value')
+    election_expenses_sum = sum([d.value for d in election_expenses])
+
     votes = councilman.vote_set.get(election_year=2016)
 
     data = {
@@ -32,6 +35,8 @@ def detail(request, slug):
         'assets_sum': assets_sum,
         'expenses': expenses,
         'expenses_sum': expenses_sum,
-        'votes': votes
+        'votes': votes,
+        'election_expenses': election_expenses,
+        'election_expenses_sum': election_expenses_sum
     }
     return render(request, 'detail.html', data)
