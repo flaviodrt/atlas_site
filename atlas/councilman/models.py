@@ -107,15 +107,14 @@ class Salary(models.Model):
 
 
 class ExpensesElection(models.Model):
-
     councilman = models.ForeignKey(Councilman)
     sequential_id = models.BigIntegerField('Sequential Id', null=True)
-    provider = models.IntegerField('Provider')
-    cnpj = models.IntegerField('CNPJ')
-    economic_sector = models.IntegerField('Economic Sector')
+    provider = models.CharField('Provider', max_length=255)
+    cnpj = models.CharField('Tax ID', max_length=255)
+    economic_sector = models.CharField('Economic Sector', max_length=255)
     value = models.IntegerField('Value')
-    kind = models.IntegerField('Kind')
-    description = models.IntegerField('Description')
+    kind = models.CharField('Kind', max_length=255)
+    description = models.CharField('Description', max_length=255)
 
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
