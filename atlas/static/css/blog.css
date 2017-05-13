@@ -29,6 +29,10 @@ h6, .h6 {
  * Override Bootstrap's default container.
  */
 
+.blog-header {
+  padding-top: 25px;
+}
+
 .container {
   max-width: 60rem;
 }
