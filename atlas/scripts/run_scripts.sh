@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set -e
 
 #python load_councilman.py /home/flavio/code/atlas/atlas/data/councilman.csv

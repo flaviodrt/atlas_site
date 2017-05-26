@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from councilman.models import Councilman
-
+from councilman.models import Councilman, ExpensesElection
+from django.db.models import Sum
 
 def index(request):
     data = {
@@ -22,8 +22,11 @@ def detail(request, slug):
     expenses = councilman.expense_set.all().order_by('-value')
     expenses_sum = sum([d.value for d in expenses])
 
-    election_expenses = councilman.expenseselection_set.all().order_by('-value')
-    election_expenses_sum = sum([d.value for d in election_expenses])
+    election_expenses = list(
+        councilman.expenseselection_set.all()
+        .values('kind').annotate(Sum('value')).order_by('-value__sum')
+    )
+    election_expenses_sum = sum([d['value__sum'] for d in election_expenses])
 
     votes = councilman.vote_set.get(election_year=2016)
 

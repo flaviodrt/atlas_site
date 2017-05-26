@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Councilman, Donation, Expense, Asset, Vote, Salary,
-    ExpensesElection
+from .models import Councilman, Donation, Expense, Asset, Vote, Salary, ExpensesElection
 
 admin.site.register(Councilman)
 admin.site.register(Donation)
