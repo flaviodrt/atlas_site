@@ -3,6 +3,7 @@ from councilman import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+
     url(r'^vereador/(?P<slug>[\w-]+)$', views.detail, name='councilman'),
 
 ]

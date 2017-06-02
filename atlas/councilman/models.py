@@ -1,5 +1,6 @@
 from django.template.defaultfilters import slugify
 from django.db import models
+from django.db.models import Sum
 
 # Create your models here.
 
@@ -27,8 +28,21 @@ class Councilman(models.Model):
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
 
+    def donation_sum(self):
+        return self.donation_set.all().aggregate(Sum('value'))['value__sum']
+
+    def asset_sum(self):
+        return self.asset_set.all().aggregate(Sum('value'))['value__sum']
+
+    def election_expense_sum(self):
+        return self.expenseselection_set.all().aggregate(Sum('value'))['value__sum']
+
+    def expense_sum(self):
+        return self.expense_set.all().aggregate(Sum('value'))['value__sum']
+
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
+        if self.slug is None or self.slug == "":
+            self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
     def __str__(self):
