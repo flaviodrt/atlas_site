@@ -65,6 +65,9 @@ class Donation(models.Model):
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
 
+    class Meta:
+        ordering = ['-value']
+
 
 class Expense(models.Model):
 
@@ -80,6 +83,9 @@ class Expense(models.Model):
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
 
+    class Meta:
+        ordering = ['-value']
+
 
 class Asset(models.Model):
 
@@ -92,6 +98,9 @@ class Asset(models.Model):
 
     from_file = models.CharField('From file', max_length=255, default=None, null=True)
     created_at = models.DateTimeField('Created', auto_now_add=True, auto_now=False)
+
+    class Meta:
+        ordering = ['-value']
 
 
 class Vote(models.Model):

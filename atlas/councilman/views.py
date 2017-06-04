@@ -12,11 +12,6 @@ def index(request):
 def detail(request, slug):
 
     councilman = get_object_or_404(Councilman, slug=slug)
-    donations = councilman.donation_set.all().order_by('-value')
-
-    assets = councilman.asset_set.all().order_by('-value')
-
-    expenses = councilman.expense_set.all().order_by('-value')
 
     election_expenses = list(
         councilman.expenseselection_set.all()
@@ -27,9 +22,6 @@ def detail(request, slug):
 
     data = {
         'councilman': councilman,
-        'donations': donations,
-        'assets': assets,
-        'expenses': expenses,
         'votes': votes,
         'election_expenses': election_expenses
     }
