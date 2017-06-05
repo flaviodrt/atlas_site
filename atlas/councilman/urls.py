@@ -2,8 +2,7 @@ from django.conf.urls import url
 from councilman import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
 
-    url(r'^vereador/(?P<slug>[\w-]+)$', views.detail, name='councilman'),
-
+    url(r'^(?P<slug>[\w-]+)$', views.detail, name='councilman'),
+    url(r'^treemap.json$', views.treemap, name='treemap')
 ]

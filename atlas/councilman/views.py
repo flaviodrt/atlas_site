@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Sum, Count
+from django.http import JsonResponse
 from councilman.models import Councilman
-from django.db.models import Sum
+
 
 def index(request):
     data = {
@@ -26,3 +28,24 @@ def detail(request, slug):
         'election_expenses': election_expenses
     }
     return render(request, 'detail.html', data)
+
+
+def treemap(request):
+    content = [
+        {"name": "Partidos", "parent": "", "size": None}
+    ]
+    parties = [
+        {"name": f"{c['party']}", "parent": "Partidos", "size": None}
+        for c in
+        Councilman.objects.values('party').annotate(count=Count('party'))
+    ]
+    councilmen = [
+        {"name": f"{c.name}", "slug": f"{c.slug}", "parent": f"{c.party}", "size": 1,
+         "donations": c.donation_sum()}
+        for c in Councilman.objects.all()
+    ]
+
+    content.extend(parties)
+    content.extend(councilmen)
+
+    return JsonResponse(content, safe=False)
