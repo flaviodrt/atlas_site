@@ -32,16 +32,18 @@ def detail(request, slug):
 
 def treemap(request):
     content = [
-        {"name": "Partidos", "parent": "", "size": None}
+        dict(name='Partidos', parent='', size=None)
     ]
     parties = [
-        {"name": f"{c['party']}", "parent": "Partidos", "size": None}
-        for c in
-        Councilman.objects.values('party').annotate(count=Count('party'))
+        dict(name=f"{c['party']}", parent="Partidos", party="Partidos", size=None)
+        for c in Councilman.objects.values('party').distinct()
     ]
+    parties.append(
+        dict(name="Todos", parent="Partidos", party="Partidos", size=None)
+    )
     councilmen = [
-        {"name": f"{c.name}", "slug": f"{c.slug}", "parent": f"{c.party}", "size": 1,
-         "donations": c.donation_sum()}
+        dict(name=f"{c.name}", slug=f"{c.slug}", party=f"{c.party}",
+             parent="Todos", size=1, donations=c.donation_sum())
         for c in Councilman.objects.all()
     ]
 
