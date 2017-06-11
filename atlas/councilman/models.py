@@ -70,6 +70,8 @@ class Donation(models.Model):
 
 
 class Expense(models.Model):
+    """Modelo que contém as despesas do vereador na Câmara
+    """
 
     councilman = models.ForeignKey(Councilman)
     date = models.DateField('Date')

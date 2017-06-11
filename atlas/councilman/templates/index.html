@@ -8,12 +8,39 @@
   svg {
     font: 10px sans-serif;
   }
+  .form-inline {
+    margin-bottom: 5px;
+  }
+  .form-inline select {
+    margin-left: 5px
+  }
+  .form-inline .form-group:last-child {
+    margin-left: 5px;
+  }
 </style>
 {% endblock %}
 {% block body %}
 <div class="row main">
     <div class="col-sm-12">
-        <svg width="1050" height="570"></svg>
+      <form class="form-inline">
+        <div class="form-group">
+          <label for="order">Ordenar por:</label>
+          <select id="order">
+            <option value="1">Quantidade de vereadores por partido</option>
+            <option value="2">Doações</option>
+            <option value="3">Patrimônio</option>
+            <option value="4">Gastos na eleição</option>
+            <option value="5">Gastos na Câmara</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="button" id="atualizar">Atualizar</button>
+        </div>
+      </form>
+
+    </div>
+    <div class="col-sm-12">
+        <svg width="1050" height="570" id="svg"></svg>
     </div>
 </div>
 {% endblock %}
@@ -33,12 +60,22 @@ class Treemap {
     this.format = d3.format(",d");
 
     this.data = null;
+    this.root = null;
 
     this.treemap = d3.treemap()
       .tile(d3.treemapResquarify)
       .size([this.width, this.height])
       .round(true)
       .paddingInner(1);
+
+    d3.select("#atualizar")
+      .on("click", d => {
+        let svg = document.getElementById("svg");
+        svg.innerHTML = "";
+        this.buildChart(d3.select("#order").node().value);
+
+      });
+
   }
 
   loadDataAndCreateChart() {
@@ -47,31 +84,50 @@ class Treemap {
 
       this.data = data;
 
-      this.buildChart();
+      this.buildChart(1);
 
     });
   }
 
-  buildChart() {
+  buildChart(view) {
+
+    let f = this.sumByDonations;
+    if (view == 1) {
+      f = this.sumBySize;
+    } else if (view == 2) {
+      f = this.sumByDonations;
+    } else if (view == 3) {
+      f = this.sumByAssets;
+    } else if (view == 4) {
+      f = this.sumByElectionExpense;
+    } else {
+      f = this.sumByExpenses;
+    }
+
     this.root = d3.stratify()
       .id(function(d) { return d.name; })
-      .parentId(d => { return d.party; })
-      (this.data);
-
-    this.root = this.root.eachBefore(
-      function(d) { d.data.id = (d.parent ? d.parent.data.id + "." : "") + d.data.name; }
+      .parentId(d => {
+        if (view == 1) {
+          return d.party;
+        } else {
+          return d.parent;
+        }
+      })
+      (this.data)
+      .eachBefore(
+        function(d) { d.data.id = (d.parent ? d.parent.data.id + "." : "") + d.data.name; }
       )
-      .sum(this.sumBySize)
+      .sum(f)
       .sort(function(a, b) { return b.height - a.height || b.value - a.value; });
 
     this.treemap(this.root);
 
-    var cell = this.svg.selectAll("g")
+    this.cell = this.svg.selectAll("g")
       .data(this.root.leaves())
       .enter().append("g")
         .attr("transform", function(d) { return "translate(" + d.x0 + "," + d.y0 + ")"; });
 
-    cell.append("rect")
+    this.cell.append("rect")
       .attr("id", function(d) { return d.data.id; })
       .attr("width", function(d) { return d.x1 - d.x0; })
       .attr("height", function(d) { return d.y1 - d.y0; })
@@ -79,12 +135,12 @@ class Treemap {
       .attr("style", "cursor: pointer")
       .on("click", function(d) { window.location = "/vereadores/" + d.data.slug });
 
-    cell.append("clipPath")
+    this.cell.append("clipPath")
       .attr("id", function(d) { return "clip-" + d.data.id; })
       .append("use")
       .attr("xlink:href", function(d) { return "#" + d.data.id; });
 
-    cell.append("text")
+    this.cell.append("text")
       .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
       .selectAll("tspan")
       .data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
@@ -93,8 +149,8 @@ class Treemap {
           .attr("y", function(d, i) { return 13 + i * 10; })
           .text(function(d) { return d; });
 
-    cell.append("title")
-      .text(function(d) { return d.data.parent; });
+    this.cell.append("title")
+      .text(function(d) { return d.data.party; });
   }
 
   sumBySize(d) {
@@ -105,11 +161,22 @@ class Treemap {
     return d.donations;
   }
 
+  sumByAssets(d) {
+    return d.assets;
+  }
+
+  sumByElectionExpense(d) {
+    return d.election_expenses;
+  }
+
+  sumByExpenses(d) {
+    return d.expenses;
+  }
+
 }
 
 t = new Treemap();
 t.loadDataAndCreateChart();
-
 
 </script>
 {% endblock %}

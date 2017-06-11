@@ -43,7 +43,10 @@ def treemap(request):
     )
     councilmen = [
         dict(name=f"{c.name}", slug=f"{c.slug}", party=f"{c.party}",
-             parent="Todos", size=1, donations=c.donation_sum())
+             parent="Todos", size=1, donations=c.donation_sum(),
+             assets=c.asset_sum(),
+             election_expenses=c.election_expense_sum(),
+             expenses=c.expense_sum())
         for c in Councilman.objects.all()
     ]
 
