@@ -35,14 +35,15 @@ def treemap(request):
         dict(name='Partidos', parent='', size=None)
     ]
     parties = [
-        dict(name=f"{c['party']}", parent="Partidos", party="Partidos", size=None)
+        dict(name="{0}".format(c['party']), parent="Partidos", party="Partidos", size=None)
         for c in Councilman.objects.values('party').distinct()
     ]
     parties.append(
         dict(name="Todos", parent="Partidos", party="Partidos", size=None)
     )
     councilmen = [
-        dict(name=f"{c.name}", slug=f"{c.slug}", party=f"{c.party}",
+        dict(name="{0}".format(c.name), slug="{0}".format(c.slug),
+             party="{0}".format(c.party),
              parent="Todos", size=1, donations=c.donation_sum(),
              assets=c.asset_sum(),
              election_expenses=c.election_expense_sum(),
