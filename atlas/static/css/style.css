@@ -1,0 +1,16 @@
+/* home */
+.main {
+    margin-bottom: 40px;
+}
+svg {
+    font: 10px sans-serif;
+}
+.form-inline {
+    margin-bottom: 5px;
+}
+.form-inline select {
+    margin-left: 5px
+}
+.form-inline .form-group:last-child {
+    margin-left: 5px;
+}

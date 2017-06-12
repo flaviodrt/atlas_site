@@ -5,10 +5,7 @@ from councilman.models import Councilman
 
 
 def index(request):
-    data = {
-        'councilmen': Councilman.objects.all().order_by('name')
-    }
-    return render(request, 'index.html', data)
+    return render(request, 'index.html')
 
 
 def detail(request, slug):
