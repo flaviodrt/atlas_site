@@ -5,27 +5,26 @@
 {% endblock %}
 {% block body %}
 <div class="row main">
-    <div class="col-sm-12">
-      <form class="form-inline">
-        <div class="form-group">
-          <label for="order">Ordenar por:</label>
-          <select id="order">
-            <option value="1">Quantidade de vereadores por partido</option>
-            <option value="2">Doações</option>
-            <option value="3">Patrimônio</option>
-            <option value="4">Gastos na eleição</option>
-            <option value="5">Gastos na Câmara</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <button type="button" id="atualizar">Atualizar</button>
-        </div>
-      </form>
-
-    </div>
-    <div class="col-sm-12">
-        <svg width="1050" height="570" id="svg"></svg>
-    </div>
+  <div class="col-sm-12">
+    <form class="form-inline">
+      <div class="form-group">
+        <label for="order">Ordenar por:</label>
+        <select id="order">
+          <option value="1">Quantidade de vereadores por partido</option>
+          <option value="2">Doações</option>
+          <option value="3">Patrimônio</option>
+          <option value="4">Gastos na eleição</option>
+          <option value="5">Gastos na Câmara</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button type="button" id="atualizar">Atualizar</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-sm-12">
+    <svg width="1050" height="570" id="svg"></svg>
+  </div>
 </div>
 {% endblock %}
 {% block script %}
