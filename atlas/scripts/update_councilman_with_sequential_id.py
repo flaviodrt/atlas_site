@@ -10,9 +10,12 @@ django.setup()
 from councilman.models import Councilman
 
 def update_sequential_id(row):
-    c = Councilman.objects.get(name=row.loc['name'])
-    c.sequential_id = row.loc['sequential_id']
-    c.save()
+    try:
+        c = Councilman.objects.get(name=row.loc['name'])
+        c.sequential_id = row.loc['sequential_id']
+        c.save()
+    except Exception as e:
+        print(f"Error updating Councilman {e} - {row.loc['name']}")
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:

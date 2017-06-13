@@ -28,7 +28,6 @@ if __name__ == "__main__":
         df = pd.read_csv(f)
         df['from_file'] = f.split("/")[-1]
         df = pd.merge(df, councilman, on='sequential_id')
-        print(df)
         df.apply(save_from_row, axis=1)
 
     else:
