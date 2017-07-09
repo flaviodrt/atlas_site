@@ -3,7 +3,11 @@
     margin-bottom: 40px;
 }
 svg {
-    font: 10px sans-serif;
+    font: 12px sans-serif;
+}
+
+svg text.PTB tspan {
+    fill: #fff;
 }
 .form-inline {
     margin-bottom: 5px;

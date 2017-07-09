@@ -7,7 +7,28 @@ class Treemap {
     this.height = +this.svg.attr("height");
 
     this.fader = function(color) { return d3.interpolateRgb(color, "#fff")(0.2); };
-    this.color = d3.scaleOrdinal(d3.schemeCategory20.map(this.fader));
+    //this.color = d3.scaleOrdinal(d3.schemeCategory20.map(this.fader));
+
+    this.color = {
+      'PT': '#99060c',
+      'PSDB': '#0a5b9d',
+      'PV': '#006600',
+      'NOVO': '#f7833b',
+      'PSOL': '#fedf0a',
+      'DEM': '#91e9f5',
+      'PP': '#005ea4',
+      'PTB': '#232323',
+      'PRB': '#0089ad',
+      'PMDB': '#49ae34',
+      'PR': '#dc352f',
+      'PSB': '#f12e3c',
+      'PSD': '#80c342',
+      'PPS': '#ff3124',
+      'PSC': '#00923e',
+      'PROS': '#faa13b',
+      'PHS': '#8a191e',
+      'PTN': '#00d663'
+    }
     this.format = d3.format(",d");
 
     this.data = null;
@@ -82,7 +103,7 @@ class Treemap {
       .attr("id", function(d) { return d.data.id; })
       .attr("width", function(d) { return d.x1 - d.x0; })
       .attr("height", function(d) { return d.y1 - d.y0; })
-      .attr("fill", d => this.color(d.data.party) )
+      .attr("fill", d => this.color[d.data.party] )
       .attr("style", "cursor: pointer")
       .on("click", function(d) { window.location = "/vereadores/" + d.data.slug });
 
@@ -93,12 +114,15 @@ class Treemap {
 
     this.cell.append("text")
       .attr("clip-path", function(d) { return "url(#clip-" + d.data.id + ")"; })
+      .attr("class", function(d) { return d.data.party })
       .selectAll("tspan")
       .data(function(d) { return d.data.name.split(/(?=[A-Z][^A-Z])/g); })
         .enter().append("tspan")
           .attr("x", 4)
-          .attr("y", function(d, i) { return 13 + i * 10; })
-          .text(function(d) { return d; });
+          .attr("style", "cursor: pointer; margin-bottom: 12px")
+          .attr("y", function(d, i) { return i * 10 + 15; })
+          .text(function(d) { return d; })
+          .on("click", function(d) { window.location = "/vereadores/" + d.data.slug });
 
     this.cell.append("title")
       .text(function(d) { return d.data.party; });
